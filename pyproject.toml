@@ -1,0 +1,11 @@
+[project]
+name = "ramalama-mcp"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastmcp>=2.11.3",
+    "openai-agents>=0.2.9",
+    "ramalama>=0.12.1",
+]
