@@ -1,6 +1,6 @@
 import asyncio
 from agents import Agent, Runner, OpenAIChatCompletionsModel, AsyncOpenAI
-from agents.mcp import MCPServerSse
+from agents.mcp import MCPServerStreamableHttp
 from agents.run_context import RunContextWrapper
 
 from agents import set_tracing_disabled
@@ -12,7 +12,7 @@ async def main():
     run_context = RunContextWrapper(context=None)
 
     # Use async context manager to connect to MCP server
-    async with MCPServerSse(params={"url": "http://127.0.0.1:8000/sse"}) as mcp_server:
+    async with MCPServerStreamableHttp(params={"url": "http://127.0.0.1:8000/mcp"}) as mcp_server:
 
         model = OpenAIChatCompletionsModel(
             model="llama3.2",
@@ -37,7 +37,7 @@ async def main():
             print("-", tool.name)
 
         # Run the Agent
-        result = await Runner.run(agent, "How many files do I have on my Desktop and what are the file names?", max_turns=100)
+        result = await Runner.run(agent, "How many files do I have on my Desktop and what are the file names?", max_turns=10)
         print("Agent output:", result.final_output)
 
 asyncio.run(main())
