@@ -51,6 +51,17 @@ def list_env_vars(prefix: str = "PATH") -> str:
     
     return "\n".join(matching_vars)
 
+@mcp.tool(description="Test tool: given a city, return a mock weather message")
+def test_weather(city: str) -> str:
+    """Returns a mock weather message for the given city."""
+    if not city:
+        return "No city provided."
+    return f"It's hot outside in {city}"
+
+@mcp.tool(description="Test tool: given three inputs called a b and c add them")
+def test_addition(a: int, b :int, c :int) -> int:
+    """Returns the sum of three inputs a b and c"""
+    return a+b+c
     
 if __name__ == "__main__":
     mcp.run(transport="http", host="127.0.0.1", port=8000)
