@@ -19,14 +19,12 @@ def list_desktop_files() -> str:
 
     return "\n".join(items)
 
-@mcp.tool(description="Get current working directory")
+@mcp.tool(description="Get the current working directory")
 def get_current_directory() -> str:
-    """Returns the current working directory."""
     return str(Path.cwd())
 
 @mcp.tool(description="Get system information including OS and Python version")
 def get_system_info() -> str:
-    """Returns basic system information."""
     info = [
         f"Operating System: {platform.system()} {platform.release()}",
         f"Python Version: {platform.python_version()}",
@@ -36,32 +34,9 @@ def get_system_info() -> str:
     ]
     return "\n".join(info)
 
-@mcp.tool(description="List environment variables starting with a prefix")
-def list_env_vars(prefix: str = "PATH") -> str:
-    """Lists environment variables that start with the given prefix."""
-    matching_vars = []
-    for key, value in os.environ.items():
-        if key.startswith(prefix.upper()):
-            # Truncate long values
-            display_value = value[:100] + "..." if len(value) > 100 else value
-            matching_vars.append(f"{key}={display_value}")
-    
-    if not matching_vars:
-        return f"No environment variables found starting with '{prefix}'"
-    
-    return "\n".join(matching_vars)
-
-@mcp.tool(description="Test tool: given a city, return a mock weather message")
-def test_weather(city: str) -> str:
-    """Returns a mock weather message for the given city."""
-    if not city:
-        return "No city provided."
-    return f"It's hot outside in {city}"
-
-@mcp.tool(description="Test tool: given three inputs called a b and c add them")
-def test_addition(a: int, b :int, c :int) -> int:
-    """Returns the sum of three inputs a b and c"""
-    return a+b+c
+@mcp.tool(description="Get a person's favorite food given the name of a person")
+def get_favorite_food(name: str) -> str:
+    return f"{name}'s favorite food is pizza"
     
 if __name__ == "__main__":
     mcp.run(transport="http", host="127.0.0.1", port=8000)
